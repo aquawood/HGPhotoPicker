@@ -3,9 +3,9 @@
 This is an image viewer and cropper for iOS 7 and above. 
 It is compatable with iOS 7 using AssetsLibrary framework and later using Photos framework.
 
-Usage:
-Copy PhotoPicker folder to your project
-Caller has to be conformed to HGPhotoPickerDelegate protocol
+Usage:</br>
+Copy PhotoPicker folder to your project </br>
+Caller has to be conformed to HGPhotoPickerDelegate protocol</br>
 
     // Present photo picker 
     HGPhotoPickerVC *vc = [[HGPhotoPickerVC alloc] init];
