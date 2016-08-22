@@ -174,7 +174,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ba-kc-jlJ" userLabel="Menu View">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="相机胶卷" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxN-Q8-Lgd">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Camera Roll" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxN-Q8-Lgd">
                             <rect key="frame" x="56" y="17" width="488" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="JDW-4S-H17"/>
@@ -198,14 +198,14 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dx0-Tt-oZs">
-                            <rect key="frame" x="8" y="8" width="50" height="40"/>
+                            <rect key="frame" x="8" y="8" width="64" height="40"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="50" id="PQP-9C-4h0"/>
+                                <constraint firstAttribute="width" constant="64" id="PQP-9C-4h0"/>
                                 <constraint firstAttribute="height" constant="40" id="Ygl-n3-Z0d"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <inset key="contentEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
-                            <state key="normal" title="取消"/>
+                            <state key="normal" title="Cancel"/>
                             <state key="selected">
                                 <color key="titleColor" red="0.94117647058823528" green="0.94901960784313721" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -214,14 +214,14 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5iB-Jh-kTh">
-                            <rect key="frame" x="552" y="6" width="50" height="40"/>
+                            <rect key="frame" x="546" y="6" width="56" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="4aS-BG-rpd"/>
-                                <constraint firstAttribute="width" constant="50" id="NE8-9R-uXl"/>
+                                <constraint firstAttribute="width" constant="56" id="NE8-9R-uXl"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
-                            <state key="normal" title="完成">
+                            <state key="normal" title="Done">
                                 <color key="titleColor" red="0.55294117649999996" green="0.74901960779999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
@@ -240,10 +240,10 @@
                         <constraint firstAttribute="trailing" secondItem="5iB-Jh-kTh" secondAttribute="trailing" constant="-2" id="CsQ-ni-3OY">
                             <variation key="heightClass=regular-widthClass=compact" constant="5"/>
                         </constraint>
-                        <constraint firstItem="cxN-Q8-Lgd" firstAttribute="leading" secondItem="Dx0-Tt-oZs" secondAttribute="trailing" constant="-2" id="INH-fO-tBz">
+                        <constraint firstItem="cxN-Q8-Lgd" firstAttribute="leading" secondItem="Dx0-Tt-oZs" secondAttribute="trailing" constant="-16" id="INH-fO-tBz">
                             <variation key="heightClass=regular-widthClass=compact" constant="6"/>
                         </constraint>
-                        <constraint firstItem="5iB-Jh-kTh" firstAttribute="leading" secondItem="cxN-Q8-Lgd" secondAttribute="trailing" constant="8" id="InH-Sz-8gz"/>
+                        <constraint firstItem="5iB-Jh-kTh" firstAttribute="leading" secondItem="cxN-Q8-Lgd" secondAttribute="trailing" constant="2" id="InH-Sz-8gz"/>
                         <constraint firstItem="cuT-mX-IPS" firstAttribute="trailing" secondItem="cxN-Q8-Lgd" secondAttribute="trailing" id="Wnr-13-TEo"/>
                         <constraint firstItem="5iB-Jh-kTh" firstAttribute="top" secondItem="8ba-kc-jlJ" secondAttribute="top" constant="6" id="dqA-0U-VSM">
                             <variation key="heightClass=regular-widthClass=compact" constant="8"/>
