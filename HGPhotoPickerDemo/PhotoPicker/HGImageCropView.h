@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HCHImageCropView : UIScrollView
+@interface HGImageCropView : UIScrollView
 
 @property (nonatomic, strong) UIImage   *image;
 @property (nonatomic, assign) CGSize    imageSize;

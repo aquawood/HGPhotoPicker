@@ -6,9 +6,9 @@
 //  Copyright © 2016 matchbox. All rights reserved.
 //
 
-#import "HCHPhotoPickerVC.h"
-#import "HCHAlbumView.h"
-#import "HCHImageCropView.h"
+#import "HGPhotoPickerVC.h"
+#import "HGAlbumView.h"
+#import "HGImageCropView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
 
@@ -19,12 +19,12 @@
 #define STRONGSELF      typeof(weakSelf) __strong strongSelf = weakSelf;
 
 
-@interface HCHPhotoPickerVC () <UITableViewDataSource, UITableViewDelegate, PHPhotoLibraryChangeObserver>
+@interface HGPhotoPickerVC () <UITableViewDataSource, UITableViewDelegate, PHPhotoLibraryChangeObserver>
 
 @property (weak, nonatomic) IBOutlet UIView     *photoLibraryViewerContainer;
 @property (weak, nonatomic) IBOutlet UIView     *menuView;
 @property (weak, nonatomic) IBOutlet UILabel    *titleLabel;
-@property (nonatomic, strong) HCHAlbumView      *albumView;
+@property (nonatomic, strong) HGAlbumView      *albumView;
 @property (nonatomic, strong) NSMutableArray    *groupList;
 @property (nonatomic, strong) ALAssetsGroup     *currentGroup;
 @property (nonatomic, strong) UIImageView       *arrow;
@@ -42,7 +42,7 @@
 
 @property (nonatomic, retain) NSObject          *guideManager;
 
-@property (weak, nonatomic)  HCHImageCropView   *imageCropViewForGuide;
+@property (weak, nonatomic)  HGImageCropView   *imageCropViewForGuide;
 
 @property (weak, nonatomic) IBOutlet UIButton   *doneBtn;
 
@@ -53,7 +53,7 @@
 
 @end
 
-@implementation HCHPhotoPickerVC
+@implementation HGPhotoPickerVC
 
 - (BOOL)photoAccessIsAllowed {
     
@@ -96,7 +96,7 @@
     self.photoAccessAllowed = [self photoAccessIsAllowed];
     
     if (self.photoAccessAllowed) {
-        self.albumView = [[[NSBundle mainBundle] loadNibNamed:@"HCHAlbumView" owner:self options:nil] objectAtIndex:0];
+        self.albumView = [[[NSBundle mainBundle] loadNibNamed:@"HGAlbumView" owner:self options:nil] objectAtIndex:0];
         WEAKSELF
         [self.albumView setCameraCallBackBlock:^{
             STRONGSELF
@@ -189,28 +189,6 @@
         [self.albumView setup];
         [self.albumView layoutIfNeeded];
     }
-    
-    if (self.photoAccessAllowed) {
-        //新引导教学
-        //     if (![[Config currentConfig].version isEqualToString:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]])
-        //     {
-        //        NSMutableArray *targetViewsArray = [[NSMutableArray alloc] init];
-        //        [targetViewsArray addObject:self.titleLabel];
-        //        [targetViewsArray addObject:self.imageCropViewForGuide];
-        //
-        //        if ( ([targetViewsArray count] != 0)) {
-        //
-        //            HCHUserGuideManagerForUpdateApp *guideManager = [[HCHUserGuideManagerForUpdateApp alloc]init];
-        //            self.guideManager = guideManager;
-        //            [guideManager attachUserGuideViews:targetViewsArray withGuideType:guideTypeSelectingPhotoAlbum];
-        //
-        //        }else
-        //        {
-        //            DLog(@"no guideViewIndicators");
-        //        }
-        //     }
-    }
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -453,7 +431,7 @@
             }];
             PHFetchResult *result = [PHAsset fetchAssetsInAssetCollection:collection options:fetchOptions];
             
-            countLbl.text = [NSString stringWithFormat:@"%ld", result.count];
+            countLbl.text = [NSString stringWithFormat:@"%ld", (unsigned long)result.count];
             lbl.text = collection.localizedTitle;
             
         } else {
@@ -576,10 +554,10 @@
     }
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     
-    if ([self.delegate respondsToSelector:@selector(hchPhotoPicker:didFinishWithImage:cropped:)]) {
+    if ([self.delegate respondsToSelector:@selector(hgPhotoPicker:didFinishWithImage:cropped:)]) {
         [self dismissViewControllerAnimated:NO completion:^{
             
-            [self.delegate hchPhotoPicker:self
+            [self.delegate hgPhotoPicker:self
                        didFinishWithImage:self.albumView.selectedImage
                                   cropped:info[@"cropped"]];
         }];
@@ -588,8 +566,8 @@
 
 - (IBAction)cancelBtnDidTap:(id)sender {
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    if ([self.delegate respondsToSelector:@selector(hchPhotoPickerDidCancel:)]) {
-        [self.delegate hchPhotoPickerDidCancel:self];
+    if ([self.delegate respondsToSelector:@selector(hgPhotoPickerDidCancel:)]) {
+        [self.delegate hgPhotoPickerDidCancel:self];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }

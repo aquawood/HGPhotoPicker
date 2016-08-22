@@ -6,13 +6,11 @@
 //  Copyright © 2016 matchbox. All rights reserved.
 //
 
-#import "HCHAlbumView.h"
-#import "HCHImageCropView.h"
+#import "HGAlbumView.h"
+#import "HGImageCropView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
-#import "HCHGridCell.h"
-//#import "UICollectionView+Convenience.h"
-//#import "NSIndexSet+Convenience.h"
+#import "HGGridCell.h"
 
 #pragma mark - Apple Convinient Category
 
@@ -58,7 +56,7 @@ typedef enum : NSUInteger {
 const CGFloat imageCropViewOriginalConstraintTop = 50.0f;
 const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
 
-@interface HCHAlbumView () <UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate, HCHGridCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface HGAlbumView () <UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate, HGGridCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, assign) CGFloat   size;
 
@@ -66,7 +64,7 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
 
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewConstraintHeight;
-@property (weak, nonatomic) IBOutlet UIView *imageCropViewContainer;
+@property (weak, nonatomic) IBOutlet UIView             *imageCropViewContainer;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewConstraintBottom;
 
 @property (nonatomic, assign) CGFloat imaginaryCollectionViewOffsetStartPosY;
@@ -83,13 +81,13 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
 @property (nonatomic, assign) BOOL                  phAvailable;
 
 @property (nonatomic, strong) PHCachingImageManager *imageManager;
-@property CGRect previousPreheatRect;
+@property (nonatomic, assign) CGRect                previousPreheatRect;
 
-@property (nonatomic, strong) NSMutableArray *preloadedCells;
+@property (nonatomic, strong) NSMutableArray        *preloadedCells;
 
-@property (nonatomic, assign) BOOL  firstTime;
+@property (nonatomic, assign) BOOL      firstTime;
 
-@property (nonatomic, assign) BOOL  startFromCollectionView;
+@property (nonatomic, assign) BOOL      startFromCollectionView;
 
 @property (nonatomic, assign) CGFloat   maxOffsetY;
 
@@ -103,7 +101,8 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
 
 @end
 
-@implementation HCHAlbumView
+
+@implementation HGAlbumView
 
 - (void)setup {
     self.dragDirection = HCHDragDirectionUp;
@@ -133,22 +132,10 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
     self.collectionViewConstraintHeight.constant = self.frame.size.height - self.imageCropView.frame.size.height - imageCropViewOriginalConstraintTop +500;
     [self layoutIfNeeded];
     
-    // Shadow
-//    self.shadow = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_WIDTH, SCREEN_WIDTH, 50)];
-//    self.shadow .userInteractionEnabled = NO;
-//    CAGradientLayer *gradient = [CAGradientLayer layer];
-//    gradient.frame = self.shadow.bounds;
-//    gradient.colors = @[(id)[[UIColor colorWithHexString:@"000000" alpha:0.36] CGColor], (id)[[UIColor colorWithHexString:@"000000" alpha:0.0f] CGColor]];
-//    [self.shadow .layer insertSublayer:gradient atIndex:0];
-//    [self.imageCropViewContainer addSubview:self.shadow];
-    
     // Shadow in crop view
     [self.imageCropViewConstraintTop addObserver:self forKeyPath:@"constant" options:NSKeyValueObservingOptionNew context:NULL];
     self.maxOffsetY = (self.imageCropViewContainer.frame.size.height + imageCropViewOriginalConstraintTop)/0.5;
     [self.imageCropViewContainer addSubview:self.cropShadow];
-    
-    //    [self resetCachedAssets];
-    
 }
 
 - (UIView *)cropShadow {
@@ -172,14 +159,11 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
     self.firstTime = YES;
     self.phAvailable = IOS8_OR_LATER;
     if (self.phAvailable) {
-        //        [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+
     }
     self.backgroundColor = [UIColor blackColor];
     self.imageCropViewContainer.backgroundColor = [UIColor blackColor];
     self.imageCropView.backgroundColor = [UIColor blackColor];
-    //    self.imageManager = [[PHCachingImageManager alloc] init];
-    
-    //    [self setupPreloadedCells];
 }
 
 - (PHCachingImageManager *)imageManager {
@@ -201,7 +185,7 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
 }
 
 - (void)setupCollectionView {
-    [self.collectionView registerClass:[HCHGridCell class] forCellWithReuseIdentifier:@"GridCell"];
+    [self.collectionView registerClass:[HGGridCell class] forCellWithReuseIdentifier:@"GridCell"];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.updateLimitIndex = 20;
@@ -223,8 +207,6 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
     self.collectionView.collectionViewLayout = layout;
     self.assets = [NSMutableArray arrayWithCapacity:300];
     [self loadAssets];
-    
-    //    [self loadGroups];
 }
 
 
@@ -373,8 +355,6 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
                 [self popDown];
             }
         }
-        
-        
     }
 }
 
@@ -445,10 +425,10 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
 
 #pragma mark - HCHGridCell Delegate
 
-- (void)gridCell:(HCHGridCell *)cell didSelect:(BOOL)selected atIndex:(NSInteger)index {
+- (void)gridCell:(HGGridCell *)cell didSelect:(BOOL)selected atIndex:(NSInteger)index {
     
     if (self.selectedIndex != NSNotFound) {
-        HCHGridCell *cell = (HCHGridCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
+        HGGridCell *cell = (HGGridCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
         cell.selectedButton.selected = NO;
         [cell setNeedsDisplay];
     }
@@ -479,15 +459,7 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    HCHGridCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"GridCell" forIndexPath:indexPath];
-    //    if (cell == nil) {
-    //        cell = self.preloadedCells.firstObject;
-    //        if (cell == nil) {
-    //            cell = [[HCHGridCell alloc] init];
-    //        } else {
-    //            [self.preloadedCells removeObject:cell];
-    //        }
-    //    }
+    HGGridCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"GridCell" forIndexPath:indexPath];
     cell.selectedSquare.hidden = YES;
     if (indexPath.row == 0) {
         cell.imageView.image = nil;
@@ -546,10 +518,10 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
         if (self.phAvailable) {
             [self loadCropView];
             
-            HCHGridCell *cell = (HCHGridCell *)[collectionView cellForItemAtIndexPath:indexPath];
+            HGGridCell *cell = (HGGridCell *)[collectionView cellForItemAtIndexPath:indexPath];
             cell.selectedSquare.hidden = NO;
             
-            HCHGridCell *cell1 = (HCHGridCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0]];
+            HGGridCell *cell1 = (HGGridCell *)[collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0]];
             cell1.selectedSquare.hidden = YES;
             
         } else {
@@ -679,8 +651,7 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
             
             
         } completion:^(BOOL finished) {
-            //            [self.collectionView reloadData];
-            //            [self resetCachedAssets];
+
         }];
     }
     [self loadCropViewAsync:NO];
@@ -899,13 +870,12 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
     [self.viewController presentViewController:picker animated:YES completion:nil];
     
     NSIndexPath *ip = [NSIndexPath indexPathForItem:self.selectedIndex inSection:0];
-    HCHGridCell *cell = (HCHGridCell *)[self.collectionView cellForItemAtIndexPath:ip];
+    HGGridCell *cell = (HGGridCell *)[self.collectionView cellForItemAtIndexPath:ip];
     cell.selectedSquare.hidden = YES;
 }
 
 - (void)cropViewTapped:(UITapGestureRecognizer *)tg {
     
-    //    [self killScroll];
     self.dragDirection = HCHDragDirectionStop;
     [self.imageCropView changeScrollable:YES];
     
@@ -915,31 +885,22 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
     
     // Pop down the crop view from top
     // Get back to the original position
-    
     [UIView animateWithDuration:0.2 delay:0. options:UIViewAnimationOptionCurveEaseInOut animations:^{
         
         self.imageCropViewConstraintTop.constant = imageCropViewOriginalConstraintTop;
         [self layoutIfNeeded];
         
     } completion:^(BOOL finished) {
-        //        [UIView animateWithDuration:0.0 delay:0. options:UIViewAnimationOptionCurveEaseInOut animations:^{
+
         CGPoint contentOffset = self.collectionView.contentOffset;
-        
         contentOffset.y+=(self.imageCropViewContainer.frame.size.height);
         [self.collectionView setContentOffset:contentOffset];
         self.collectionViewConstraintHeight.constant = self.frame.size.height - self.imageCropViewContainer.frame.size.height - imageCropViewOriginalConstraintTop;
-        
-        //        } completion:^(BOOL finished) {
-        //
-        //        }];
+
         
     }];
     
-    
-    
-    
     self.dragDirection = HCHDragDirectionStop;
-    
 }
 
 - (NSDictionary *)getCurrentCoordinate {
@@ -959,7 +920,6 @@ const CGFloat imageCropViewMinimalVisibleHeight = 50.0f;
     top+=imageCropViewOriginalConstraintTop;
     CGFloat p = top/self.maxOffsetY;
     self.cropShadow.alpha = p;
-    
 }
 
 

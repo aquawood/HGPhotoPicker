@@ -6,15 +6,15 @@
 //  Copyright © 2016 matchbox. All rights reserved.
 //
 
-#import "HCHImageCropView.h"
+#import "HGImageCropView.h"
 
-@interface HCHImageCropView () <UIScrollViewDelegate>
+@interface HGImageCropView () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIImageView   *imageView;
 
 @end
 
-@implementation HCHImageCropView
+@implementation HGImageCropView
 
 - (void)setup {
     self.imageView = [[UIImageView alloc] init];

@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@class HCHGridCell;
+@class HGGridCell;
 
-@protocol HCHGridCellDelegate <NSObject>
+@protocol HGGridCellDelegate <NSObject>
 
-- (void)gridCell:(HCHGridCell *)cell didSelect:(BOOL)selected atIndex:(NSInteger)index;
+- (void)gridCell:(HGGridCell *)cell didSelect:(BOOL)selected atIndex:(NSInteger)index;
 
 @end
 
-@interface HCHGridCell : UICollectionViewCell
+@interface HGGridCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIButton  *selectedButton;
 
@@ -26,7 +26,7 @@
 
 @property (nonatomic, assign) NSInteger index;
 
-@property (nonatomic, weak) id<HCHGridCellDelegate> delegate;
+@property (nonatomic, weak) id<HGGridCellDelegate> delegate;
 
 @property (nonatomic, copy) NSString *representedAssetIdentifier;
 

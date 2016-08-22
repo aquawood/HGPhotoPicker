@@ -6,10 +6,10 @@
 //  Copyright © 2015 matchbox. All rights reserved.
 //
 
-#import "HCHGridCell.h"
+#import "HGGridCell.h"
 
 
-@implementation HCHGridCell
+@implementation HGGridCell
 
 - (instancetype)initWithFrame:(CGRect)frame {
     

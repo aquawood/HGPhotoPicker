@@ -7,10 +7,10 @@
 //
 
 #import "ViewController.h"
-#import "HCHPhotoPickerVC.h"
+#import "HGPhotoPickerVC.h"
 
 
-@interface ViewController () <HCHPhotoPickerDelegate>
+@interface ViewController () <HGPhotoPickerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
@@ -24,7 +24,7 @@
 }
 - (IBAction)showPicker:(id)sender {
 
-    HCHPhotoPickerVC *vc = [[HCHPhotoPickerVC alloc] init];
+    HGPhotoPickerVC *vc = [[HGPhotoPickerVC alloc] init];
     vc.delegate = self;
     [self presentViewController:vc animated:YES completion:^{
         
@@ -39,11 +39,11 @@
 
 #pragma mark - Picker Delegate
 
-- (void)hchPhotoPicker:(HCHPhotoPickerVC *)picker didFinishWithImage:(UIImage *)image cropped:(UIImage *)cropped {
+- (void)hgPhotoPicker:(HGPhotoPickerVC *)picker didFinishWithImage:(UIImage *)image cropped:(UIImage *)cropped {
     self.imageView.image = cropped;
 }
 
-- (void)hchPhotoPickerDidCancel:(HCHPhotoPickerVC *)picker {
+- (void)hgPhotoPickerDidCancel:(HGPhotoPickerVC *)picker {
 
 }
 
