@@ -1,9 +1,9 @@
 //
 //  HCHGridCell.h
-//  matchbox
+//  HG
 //
 //  Created by Heng Gong on 12/24/15.
-//  Copyright © 2015 matchbox. All rights reserved.
+//  Copyright © 2015 HG. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

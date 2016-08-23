@@ -1,9 +1,9 @@
      //
 //  HCHAlbumView.m
-//  matchbox
+//  HG
 //
 //  Created by Heng Gong on 3/22/16.
-//  Copyright © 2016 matchbox. All rights reserved.
+//  Copyright © 2016 HG. All rights reserved.
 //
 
 #import "HGAlbumView.h"
